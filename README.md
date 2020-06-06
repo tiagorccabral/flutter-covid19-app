@@ -1,6 +1,6 @@
-# codvid_19
+# Flutter Covid19
 
-A new Flutter project.
+Flutter app to display informations about the Covid 19 virus
 
 ## Getting Started
 
