@@ -1,4 +1,6 @@
 import 'package:codvid_19/constant.dart';
+import 'package:codvid_19/widgets/counter.dart';
+import 'package:codvid_19/widgets/my_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -28,55 +30,10 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          ClipPath(
-            clipper: MyClipper(),
-            child: Container(
-              padding: EdgeInsets.only(left: 40, top: 50, right: 20),
-              height: 350,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [Color(0xFF3383CD), Color(0xFF11249F)]),
-                image: DecorationImage(
-                  image: AssetImage("assets/images/virus.png"),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: SvgPicture.asset("assets/icons/menu.svg"),
-                  ),
-                  SizedBox(height: 10),
-                  Expanded(
-                    child: Stack(
-                      children: <Widget>[
-                        SvgPicture.asset(
-                          "assets/icons/Drcorona.svg",
-                          width: 230,
-                          fit: BoxFit.fitWidth,
-                          alignment: Alignment.topCenter,
-                        ),
-                        Positioned(
-                          top: 20,
-                          left: 150,
-                          child: Text(
-                            "All you need \nis stay home.",
-                            style: kHeadingTextStyle.copyWith(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        Container(),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
+          MyHeader(
+            image: "assets/icons/Drcorona.svg",
+            textTop: "All you need",
+            textBottom: "is stay home.",
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
@@ -135,31 +92,94 @@ class HomeScreen extends StatelessWidget {
                             )
                           ],
                         ),
+                      ),
+                      Spacer(),
+                      Text(
+                        "See details",
+                        style: TextStyle(
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.w600,
+                        ),
                       )
                     ],
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0, 4),
+                          blurRadius: 30,
+                          color: kShadowColor,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Counter(
+                          color: kInfectedColor,
+                          number: 1046,
+                          title: "Infected",
+                        ),
+                        Counter(
+                          color: kDeathColor,
+                          number: 112,
+                          title: "Deaths",
+                        ),
+                        Counter(
+                          color: kRecovercolor,
+                          number: 68,
+                          title: "Recovered",
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        "Spread of virus",
+                        style: kTitleTextstyle,
+                      ),
+                      Text(
+                        "See details",
+                        style: TextStyle(
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )
+                    ],
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 20),
+                    padding: EdgeInsets.all(20),
+                    height: 110,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0, 10),
+                          blurRadius: 30,
+                          color: kShadowColor,
+                        )
+                      ],
+                    ),
+                    child: Image.asset(
+                      "assets/images/map.png",
+                      fit: BoxFit.contain,
+                    ),
                   )
                 ],
               ))
         ],
       ),
     );
-  }
-}
-
-class MyClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-    path.lineTo(0, size.height - 80);
-    path.quadraticBezierTo(
-        size.width / 2, size.height, size.width, size.height - 80);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
   }
 }
